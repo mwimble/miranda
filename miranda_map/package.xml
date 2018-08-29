@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <package format="2">
-  <name>miranda_gazebo</name>
+  <name>miranda_map</name>
   <version>0.1.1</version>
-  <description>Wimble Robotics Miranda Simulator bringup</description>
+  <description>Wimble Robotics Miranda map bringup</description>
 
   <author email="mike@wimblerobotics.com">Michael Wimble</author>
   
@@ -14,12 +14,6 @@
 
   <buildtool_depend>catkin</buildtool_depend>
   <build_depend>roslaunch</build_depend>
-  <depend>controller_manager</depend>
-  <depend>gazebo_plugins</depend>
-  <depend>gazebo_ros</depend>
-  <depend>gazebo_ros_control</depend>
-  <depend>miranda_control</depend>
-  <depend>miranda_description</depend>
   <depend>pointcloud_to_laserscan</depend>
   <depend>rostopic</depend>
 
