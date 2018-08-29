@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<launch>
+
+  <arg name="robot_namespace" default="/"/>
+  <arg name="laser_enabled" default="$(optenv MIRANDA_LIDAR_ENABLED false)"/>
+  <arg name="euclid_enabled" default="$(optenv MIRANDA_EUCLID_ENABLED false)"/>
+  <arg name="urdf_extras" default="$(optenv MIRANDA_URDF_EXTRAS)"/>
+
+  <param name="robot_description" command="$(find xacro)/xacro '$(find miranda_description)/urdf/miranda.urdf.xacro'
+    --inorder
+    robot_namespace:=$(arg robot_namespace)
+    laser_enabled:=$(arg laser_enabled)
+    euclid_enabled:=$(arg euclid_enabled)
+    urdf_extras:=$(arg urdf_extras)
+    " />
+
+</launch>

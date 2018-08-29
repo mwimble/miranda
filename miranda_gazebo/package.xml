@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>miranda_gazebo</name>
+  <version>0.1.1</version>
+  <description>Wimble Robotics Miranda Simulator bringup</description>
+
+  <author email="mike@wimblerobotics.com">Michael Wimble</author>
+  
+  <maintainer email="mike@wimblerobotics.com">Michael Wimble</maintainer>
+
+  <license>BSD</license>
+
+  <url type="website">http://wimblerobotics.com</url>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <build_depend>roslaunch</build_depend>
+  <depend>controller_manager</depend>
+  <depend>gazebo_plugins</depend>
+  <depend>gazebo_ros</depend>
+  <depend>gazebo_ros_control</depend>
+  <depend>hector_gazebo_plugins</depend>
+  <depend>husky_control</depend>
+  <depend>husky_description</depend>
+  <depend>pointcloud_to_laserscan</depend>
+  <depend>rostopic</depend>
+
+  <export>
+  </export>
+</package>

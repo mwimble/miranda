@@ -1,0 +1,61 @@
+miranda_joint_publisher:
+  type: "joint_state_controller/JointStateController"
+  publish_rate: 50
+
+gazebo_ros_control:
+  pid_gains:
+    front_left_wheel: {p: 10.0, i: 0.01, d: 0.0}
+    front_right_wheel: {p: 10.0, i: 0.01, d: 0.0}
+
+# motor_controller:
+#   control_loop_hz: 50.0
+#   max_command_retries: 4
+#   max_seconds_uncommanded_travel: 0.5
+#   port_address: 128
+#   quad_pulses_per_meter: 5965.29
+#   quad_pulses_per_revolution: 2248.86
+#   usb_device_name: /dev/roboclaw
+#   wheel_radius: 0.06
+
+# base_to_lwheel_velocity_controller:
+#   type: effort_controllers/JointVelocityController  # From URDF <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+#   joint: base_to_lwheel_joint                       # From URDF <joint name="base_to_lwheel_joint" type="continuous">
+#   pid: {p: 8762.98571, i: 1535.49646, d: 0.0}       # From IonMotion setup program.
+
+# base_to_rwheel_velocity_controller:
+#   type: effort_controllers/JointVelocityController  # From URDF <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+#   joint: base_to_rwheel_joint                       # From URDF <joint name="base_to_rwheel_joint" type="continuous">
+#   pid: {p: 9542.41265, i: 1773.65086, d: 0.0}       # From IonMotion setup program.
+
+# joint_names: [base_to_lwheel_joint, base_to_rwheel_joint]
+
+miranda_velocity_controller:
+  # left_wheel: ['front_left_wheel', 'rear_left_wheel']
+  # right_wheel: ['front_right_wheel', 'rear_right_wheel']
+
+  base_frame_id: base_link
+  cmd_vel_timeout: 0.25
+  enable_odom_tf: false
+  estimate_velocity_from_position: false
+  left_wheel  : 'front_left_wheel'
+  right_wheel : 'front_right_wheel'
+  pose_covariance_diagonal : [0.001, 0.001, 0.001, 0.001, 0.001, 0.03]
+  publish_rate: 50.0
+  type        : "diff_drive_controller/DiffDriveController"
+  twist_covariance_diagonal: [0.001, 0.001, 0.001, 0.001, 0.001, 0.03]
+  velocity_rolling_window_size: 2
+  wheel_radius_multiplier: 1.0
+  #wheel_separation : 0.305  Check URDF #####
+  wheel_separation_multiplier: 1.875 # default: 1.0
+  linear:
+    x:
+      has_velocity_limits    : true
+      max_velocity           : 0.7
+      has_acceleration_limits: true
+      max_acceleration       : 3.0
+  angular:
+    z:
+      has_velocity_limits    : true
+      max_velocity           : 3.0
+      has_acceleration_limits: true
+      max_acceleration       : 3.0
