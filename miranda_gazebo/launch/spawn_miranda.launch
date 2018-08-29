@@ -1,6 +1,8 @@
 <?xml version="1.0"?>
 <launch>
 
+  <arg name="do_map_server" default="true" />
+  <arg name="map_file" default="$(find lysander)/maps/Snowberry.yaml"/>
   <arg name="robot_namespace" default="/"/>
 
   <arg name="x" default="0.0"/>
@@ -20,6 +22,10 @@
         <arg name="urdf_extras" value="$(arg urdf_extras)"/>
       </include>
     </group>
+
+    <include if="$(arg do_map_server)" file="$(find miranda_map)/launch/map.launch" >
+      <arg name="map_file" default="$(arg map_file)" />
+    </include>
 
     <group if="$(arg euclid_enabled)">
 
