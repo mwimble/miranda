@@ -160,38 +160,48 @@
     <origin xyz="${lidar_x_offset} 0  ${lidar_z_offset}" rpy="0 0 0"/>
   </joint-->
 
-  <xacro:arg name="laser_visual"  default="false"/>
-  <gazebo reference="base_scan">
-    <material>Gazebo/FlatBlack</material>
-    <sensor type="ray" name="lds_lfcd_sensor">
-      <pose>0 0 0 0 0 0</pose>
-      <visualize>$(arg laser_visual)</visualize>
-      <update_rate>5</update_rate>
-      <ray>
-        <scan>
-          <horizontal>
-            <samples>360</samples>
-            <resolution>1</resolution>
-            <min_angle>0.0</min_angle>
-            <max_angle>6.28319</max_angle>
-          </horizontal>
-        </scan>
-        <range>
-          <min>0.120</min>
-          <max>3.5</max>
-          <resolution>0.015</resolution>
-        </range>
-        <noise>
-          <type>gaussian</type>
-          <mean>0.0</mean>
-          <stddev>0.01</stddev>
-        </noise>
-      </ray>
-      <plugin name="gazebo_ros_lds_lfcd_controller" filename="libgazebo_ros_laser.so">
-        <topicName>scan</topicName>
-        <frameName>base_scan</frameName>
-      </plugin>
-    </sensor>
-  </gazebo>
+  <!--xacro:if value="$(arg laser_enabled)"-->
+  <xacro:if value="1">
+    <link name="top_plate_link">
+      <collision>
+        <geometry>
+          <box size="${body_length} ${body_width} 0.00508"/>
+        </geometry>
+        <origin rpy="0 0 0" xyz="0 0 ${body_center_height+0.0508}"/>
+      </collision>
+      <visual>
+        <geometry>
+          <box size="${body_length} ${body_width} 0.00508"/>
+        </geometry>
+        <material name="base" />
+        <origin rpy="0 0 0" xyz="0 0 ${body_center_height+0.0508}"/>
+      </visual>
+      <inertial>
+          <origin xyz="0 0 0" rpy="0 0 0" />
+          <mass value="1" />
+          <inertia
+            ixx="0.01" ixy="0.0" ixz="0.0"
+            iyy="0.01" iyz="0.0"
+            izz="0.01" />
+      </inertial>
+    </link>
+    
+    <joint name="top_plate_joint" type="fixed">
+      <parent link="base_link" />
+      <child link="top_plate_link"/>
+      <origin xyz="0.0 0 0." rpy="0 0 0"/>
+    </joint>
+
+    <sick_lms1xx_mount prefix="base"/>
+
+    <!--sick_lms1xx frame="base_laser" topic="scan" robot_namespace="$(arg robot_namespace)"/-->
+
+    <!--joint name="laser_mount_joint" type="fixed">
+      <origin xyz="$(arg laser_xyz)" rpy="$(arg laser_rpy)" />
+      <parent link="top_plate_link" />
+      <child link="base_link" />
+    </joint-->
+
+  </xacro:if>
 
 </robot>

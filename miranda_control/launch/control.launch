@@ -18,7 +18,14 @@
     <arg name="urdf_extras" default="$(arg urdf_extras)"/>
   </include>
 
-  <!-- Load controller configuration -->
+  <!-- Provide the missing transform to the caster wheel -->
+  <node 
+   name="caster_wheel_transform"
+   pkg="tf"
+   type="static_transform_publisher"
+   args="-0.13 0 0.06 0 0 0 base_link caster_wheel_link 100" />
+
+ <!-- Load controller configuration -->
   <rosparam command="load" file="$(find miranda_control)/config/control.yaml" />
 
   <!-- Spawn controllers -->
